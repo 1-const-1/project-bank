@@ -1,0 +1,17 @@
+@use '../../../root' as root
+
+/*
+  The containers is located near the company 
+  name and logo. This contaner has information
+  about types of consumers or clients.
+  */
+.client-group-cnt
+  display: flex
+  flex-direction: row
+  align-items: center
+
+  & > a
+    margin: 0 8px
+    font-size: root.$smallTextSize
+    color: root.$textColor
+    text-decoration: none

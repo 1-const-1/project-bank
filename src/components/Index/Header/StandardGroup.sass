@@ -1,0 +1,24 @@
+@use '../../../root' as root
+/*
+  The container element for a standard group of navigational
+  links or resources
+  */
+.standard-group-cnt
+  display: flex
+  flex-direction: row
+  align-items: center
+
+  & > a
+    margin: 0 8px
+    font-size: root.$smallTextSize
+    color: root.$textColor
+    text-decoration: none
+
+.standard-group-cnt
+
+  /*
+    The container for the online banking link
+    */
+  .online-bank-a-cnt
+    font-size: root.$smallTextSize
+    color: root.$activeElm

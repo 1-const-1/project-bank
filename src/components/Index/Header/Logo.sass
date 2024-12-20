@@ -1,0 +1,28 @@
+@use '../../../root' as root
+
+/*
+  This class is used as a container for company branding elements.
+  It groups related items, such as the company logo and name,
+  ensuring consistent alignment and spacing
+  */
+
+.company-logo-cnt
+  display: flex
+  flex-direction: row
+  align-items: center
+
+  & > div
+    margin: 0 4px
+
+/*
+  This class applies styling specifically to the company's logo
+  */
+.company-logo
+  font-size: root.$normalTextSize
+
+/*
+  This class is used to style the textual representation of 
+  the company's name, ensuring alligned with the logo
+  */
+.company-name
+  font-size: root.$normalTextSize

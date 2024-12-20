@@ -1,7 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
+@use './mixin' as mixin
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
   
+// Main palette
+$textColor: #555
+$backColor: #fdfdfd
+$activeElm: #50c878
+$borderColor: #c0c0c0
+$borderColorLight: #c0c0c050
+$neutralElm: #2c3e50
+
+// Common text sizes
+$smallTextSize: 12px
+$normalTextSize: 16px
+$bigTextSize: 24px
+$largeTextSize: 32px
+
 *
   margin: 0
   padding: 0
   font-size: 16px
-  font-family: 'Montserrat'
+  font-family: 'Alexandria', 'Arial', sans-serif
+  text-decoration: none
+
+  body
+    background-color: $backColor
+
+  button
+    border: none
+    background-color: transparent
+    cursor: pointer
+
+@include mixin.window ('xlarge')
+  body
+    padding: 0 16%
+
+@include mixin.window ('large') 
+  body
+    padding: 0 8%
+
+@include mixin.window ('medium')
+
+@include mixin.window ('small')
+
+@include mixin.window ('xsmall')

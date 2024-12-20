@@ -1,0 +1,21 @@
+@use '../../../root' as root
+
+/*
+  The head section of the main page   
+  */ 
+.body-header
+  display: flex
+  flex-direction: row
+  align-items: center
+  width: 100%
+  padding: 16px 0
+  border-bottom: 1px solid root.$borderColorLight
+
+  & > div
+    display: flex
+    flex-direction: row
+    align-items: center
+    width: 100%
+
+  & >:last-child
+    justify-content: flex-end
