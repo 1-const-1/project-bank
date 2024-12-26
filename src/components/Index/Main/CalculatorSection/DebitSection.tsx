@@ -1,79 +1,64 @@
-import React from 'react'
-
+import React {useState, useCallback} from 'react'
 import './DebitSection.sass'
-import { terms } from './debitSection'
+import { terms, TermIndex } from './debitSection'
+
+
 
 const DebitSection: React.FC<{}> = () => {
 
-  const [income, setIncome] = React.useState(0)
-  const [interest, setInterest] = React.useState(0)
-  const [total, setTotal] = React.useState(0)
-  const date = React.useRef('')
+  const [deposit, setDeposit] = useState<number>(0)
+  const [term, setTerm] = useState<number>(terms[0]?.period || 0)
+  const [withdrawal, setWithdrawal] = useState<boolean>(false)
+  const [total, setTotal] = useState<number>(0)
+  const [income, setIncome] = useState<number>(0)
+  const [interestRate, setInterestRate] = useState<number>(0)
+  const [accumulationDate, setAccumulationDate] = useState<string>('')
 
-  const t = terms
+  const calculateAccumulationDate = useCallback((period: number): string => {
+    const now = new Date()
+    const years = Math.floor(period / 12)
+    const months = period % 12
+    now.setFullYear(now.getFullYear() + years)
+    now.setMonth(now.getMonth() + months)
+    return `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`
+  }, [])
 
-  const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const elm = document.getElementById('calculator-select-term') as HTMLSelectElement
-    const ckbox = document.getElementById('withdrawl-checkbox') as HTMLInputElement
-
-    countDeposit(Number(e.target.value), Number(elm.value), ckbox.checked)
-  }
-
-  const selectOnChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-    const elm = document.getElementById('calculator-input-deposit') as HTMLInputElement
-    const ckbox = document.getElementById('withdrawl-checkbox') as HTMLInputElement
-
-    countDeposit(Number(elm.value), Number(e.target.value), ckbox.checked)
-    date.current = getDate()
-  } 
-
-  const checkboxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const elm1 = document.getElementById('calculator-select-term') as HTMLSelectElement
-    const elm2 = document.getElementById('calculator-input-deposit') as HTMLInputElement
-
-    countDeposit(Number(elm2.value), Number(elm1.value), e.target.checked)
-  }
-
-  const getDate = (): string => {
-    const elm = document.getElementById('calculator-select-term') as HTMLSelectElement
-
-    const now = new Date(Date.now())
-    const y = Math.floor(Number(elm.value) / 12)
-    const m = Number(elm.value) % 12
-
-    return `${(now.getMonth() + m + 1 > 12 ? now.getMonth() + m + 1 - 12 : now.getMonth() + m + 1)}.${now.getDate()}.${now.getFullYear() + y}`
-  }
-
-  const countDeposit = (s:number, p: number, w: boolean): void => {
-    let sum = s
-    const idx = terms.find(v => v.period === p)
-
-    if (!idx || !p) {
+  const calculateDeposit = useCallback((principal: number, period: number, allowWithdrawal: boolean) => {
+    if (principal <= 0 || period <= 0) {
       setTotal(0)
-      return;
+      setIncome(0)
+      setInterestRate(0)
+      return
     }
 
-    const interest = w ? idx.wInterest : idx.interest
+    const termDetails: TermIndex | undefined = terms.find((t) => t.period === period)
+    if (!termDetails) return
 
-    for (let i = 0; i < p; i++) {
-      const inc = sum * interest / 100
-      sum += inc
+    const rate = allowWithdrawal ? termDetails.wInterest : termDetails.interest
+    let accumulated = principal
+
+    for (let i = 0; i < period; i++) {
+      accumulated += (accumulated * rate) / 100 / 12
     }
-  
-    setInterest(interest)
-    setIncome(sum - s)
-    setTotal(sum)
-  }
+
+    setInterestRate(rate)
+    setIncome(accumulated - principal)
+    setTotal(accumulated)
+  }, [])
+
+  useEffext(() => {
+    setAccumulationDate(calculateAccumulationDate(term))
+    calculateDeposit(deposit, term, withdrawal)
+  }, [deposit, term, withdrawal, calculateDeposit, calculateAccumulationDate])
 
   return (
-  <div
-    className='credit-calculator-content-cnt'>
+  <div className='credit-calculator-content-cnt'>
     <div>
-      <div
-        className='calculator-inp-cnt'>
+      <div className='calculator-inp-cnt'>
         <label htmlFor="">Deposit amount</label>
         <input 
-          onChange={inputOnChange}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDeposit(Number(e.target.value))}
+          value={deposit}
           type="text" 
           id='calculator-input-deposit'/>
       </div>
@@ -81,38 +66,40 @@ const DebitSection: React.FC<{}> = () => {
         className='calculator-inp-cnt'>
         <label htmlFor="">Term</label>
         <select 
-          onChange={selectOnChange}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTerm(Number(e.target.value))}
           name="" 
-          id="calculator-select-term">{t.map((v, idx) => {
-          let p: string = v.period < 12 ? 'months' : (v.period === 12 ? 'year' : 'years') 
-          let d: number = v.period / 12 < 1 ? v.period : v.period / 12
+          value={term}
+          id="calculator-select-term">{terms.map(({period}, idx) => {
+            const isYear = period >= 12
+            const l = isYear
+              ? `${period / 12} ${period === 12 ? 'year' : 'years'}`
+              : `${period} months`
 
-          return (
-            <option
-              value={v.period}
-              key={idx}>{d} {p}</option>
-          )
-        })}</select>
+            return (
+              <option key={idx} value={period}>{l}</option>
+            )
+          })}</select>
       </div>
       <div
         className='withdrawal-opt'>
         <input 
-          onChange={checkboxOnChange}
+          checked={withdrawal}
           id='withdrawl-checkbox'
-          type='checkbox' />
+          type='checkbox'
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWithdrawal(e.target.checked)} />
         <label htmlFor="">With withdrawal</label>
       </div>
     </div>
     <div>
       <div
           className='total-view'>
-        <p>Accumulate to {date.current}</p>
+        <p>Accumulate to {accumulationDate}</p>
         <div>{total.toFixed(0)} $</div>
       </div>
       <div
         className='deposit-interest-cnt'>
         <p>Deposit interest</p>
-        <span>{interest} %</span>
+        <span>{interestRate} %</span>
       </div>
       <div
         className='income-cnt'>
