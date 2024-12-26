@@ -1,0 +1,45 @@
+@use '../../../root' as root
+
+.credit-calculator-cnt
+  display: flex
+  flex-direction: row
+  justify-content: center
+  align-items: center
+
+.credit-calculator-section
+  width: 1920px
+  display: flex
+  flex-direction: column
+  margin: 32px 0
+
+  header
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+    padding: 0 256px
+
+    & > :first-child
+      font-size: root.$extraTextSize
+      color: root.$royalDarkBlue
+
+.calculator-select-option-cnt
+  display: flex
+  flex-direction: row
+  align-items: center
+
+.calculator-selected-option
+  background-color: root.$emeraldGreen
+  color: root.$backgroundColor
+  border-radius: root.$exSmallBorder
+  padding: 12px 32px
+  border-radius: root.$exSmallBorder
+  margin: 0 8px
+
+.calculator-unselected-option
+  background-color: #fff0
+  color: root.$royalDarkBlue
+  border-radius: root.$exSmallBorder
+  padding: 12px 32px
+  border-radius: root.$exSmallBorder
+  margin: 0 8px

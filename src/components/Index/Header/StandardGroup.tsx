@@ -1,5 +1,5 @@
 import React from 'react'
-import * as sGroup from './standardGroup'
+import * as sGroup from './standardGroupList'
 import OnlineBankLink from './OnlineBankLink'
 import SearchButton from './SearchButton'
 
@@ -20,7 +20,10 @@ const StandardGroup: React.FC<{}> = () => {
           <a
             key={idx}
             className={v.className} 
-            href="">{v.name}</a>
+            href="">
+              {!v.img ? null  : <v.img />}
+            <p>{v.name}</p>
+          </a>
         )
       })}
       <OnlineBankLink />

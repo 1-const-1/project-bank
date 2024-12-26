@@ -1,5 +1,6 @@
 import React from 'react'
 import * as cGroups from './clientGroup'
+import OtherClientOptions from './OtherClientOptions'
 
 import './ClientGroup.sass'
 
@@ -20,6 +21,7 @@ const ClientGroup: React.FC<{}> = () => {
             href="">{v.name}</a>
         )
       })}
+      <OtherClientOptions />
     </div>
   )
 }

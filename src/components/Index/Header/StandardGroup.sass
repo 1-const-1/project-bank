@@ -9,10 +9,17 @@
   align-items: center
 
   & > a
+    display: flex
+    flex-direction: row
+    align-items: center
     margin: 0 8px
-    font-size: root.$smallTextSize
-    color: root.$textColor
     text-decoration: none
+
+  & > a > p
+    font-size: root.$smallTextSize
+
+  & > a > svg, p
+    color: root.$royalDarkBlue
 
 .standard-group-cnt
 
@@ -21,4 +28,4 @@
     */
   .online-bank-a-cnt
     font-size: root.$smallTextSize
-    color: root.$activeElm
+    color: root.$yellowFreshLight

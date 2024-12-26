@@ -1,18 +1,21 @@
 @mixin window ($size) 
-  @if $size == 'xsmall'
-    @media screen and (max-width: 639px)
+  @if $size == 'exsmall'
+    @media screen and (max-width: 449px)
+      @content
+  @else if $size == 'xsmall'
+    @media screen and (min-width: 450px) and (max-width: 639px)
       @content
   @else if $size == 'small' 
     @media screen and (min-width: 640px) and (max-width: 799px)
       @content
   @else if $size == 'medium'
-    @media screen and (min-width: 800px) and (max-width: 1279px)
+    @media screen and (min-width: 800px) and (max-width: 1289px)
       @content
   @else if $size == 'large'
-    @media screen and (min-width: 1280px) and (max-width: 1439px)
+    @media screen and (min-width: 1290px) and (max-width: 1599px)
       @content
   @else if $size == 'xlarge'
-    @media screen and (min-width: 1440px)
+    @media screen and (min-width: 1600px)
       @content
 
     

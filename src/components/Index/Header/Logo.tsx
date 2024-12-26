@@ -13,9 +13,9 @@ const Logo: React.FC<{}> = () => {
     <div 
       className='company-logo-cnt'>
       <div
-        className='company-logo'>OB</div>
+        className='company-logo'>LOGO</div>
       <div
-        className='company-name'>ONLINE BANK</div>
+        className='company-name'>BANK</div>
     </div>
   )
 }

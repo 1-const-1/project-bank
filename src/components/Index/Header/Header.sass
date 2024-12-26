@@ -1,15 +1,31 @@
+@use '../../../mixin' as mixin
 @use '../../../root' as root
+
+@include mixin.window ('xlarge')
+  .body-header
+    & > div
+      padding: 12px 16%
+
+@include mixin.window ('large')
+  .body-header
+    & > div
+      padding: 12px 8%
 
 /*
   The head section of the main page   
   */ 
 .body-header
   display: flex
+  flex-direction: column
+  justify-content: center
+  width: 100%
+
+.main-nav-links
+  display: flex
   flex-direction: row
   align-items: center
-  width: 100%
   padding: 16px 0
-  border-bottom: 1px solid root.$borderColorLight
+  border-bottom: 1px solid root.$clearBlack10
 
   & > div
     display: flex
@@ -19,3 +35,10 @@
 
   & >:last-child
     justify-content: flex-end
+
+.topics-nav-links
+  display: flex
+  flex-direction: row
+  align-items: center
+  padding: 16px 0
+  border-bottom: 1px solid root.$clearBlack10

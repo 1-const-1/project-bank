@@ -4,6 +4,7 @@ import ClientGroup from './ClientGroup'
 import StandardGroup from './StandardGroup'
 
 import './Header.sass'
+import MainTopics from './MianTopics'
 
 /**
  * This components represents the container with all 
@@ -14,12 +15,19 @@ const Header: React.FC<{}> = () => {
   return (
     <header
       className='body-header'>
-      <div>
-        <Logo/>
-        <ClientGroup />
+      <div
+        className='main-nav-links'>
+        <div>
+          <Logo/>
+          <ClientGroup />
+        </div>
+        <div>
+          <StandardGroup />
+        </div>
       </div>
-      <div>
-        <StandardGroup />
+      <div
+        className='topics-nav-links'>
+        <MainTopics />
       </div>
     </header>
   )

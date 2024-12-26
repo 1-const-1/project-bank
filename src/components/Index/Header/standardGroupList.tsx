@@ -1,4 +1,10 @@
+import React from 'react'
+import {IconType} from 'react-icons'
+import { TfiLocationArrow } from 'react-icons/tfi'
+import { IoLanguageSharp } from 'react-icons/io5'
+
 interface stLink {
+  img: IconType|null
   name: string
   className: string
 }
@@ -15,23 +21,29 @@ const clientStyleClass = 'client-groups'
  */
 export const standardGroup: stLink[] = [
   {
+    img: null,
     name: 'Exchange rate',
     className: clientStyleClass
   },
   {
-    name: 'Offices',
-    className: clientStyleClass
-  },
-  {
-    name: 'ATMs',
-    className: clientStyleClass
-  },
-  {
+    img: TfiLocationArrow,
     name: 'Location',
     className: clientStyleClass
   },
   {
-    name: 'EN',
+    img: null,
+    name: 'Offices',
+    className: clientStyleClass
+  },
+  {
+    img: null,
+    name: 'ATMs',
+    className: clientStyleClass
+  },
+
+  {
+    img: IoLanguageSharp,
+    name: 'Lang',
     className: clientStyleClass
   },
 ]

@@ -1,0 +1,76 @@
+@use '../../../../mixin' as mixin  
+@use '../../../../root' as root
+
+.ad-block
+  height: 566px
+  background-color: root.$royalDarkBlue
+  display: flex
+  flex-direction: row
+  align-items: center
+  border-radius: root.$exLargeBorder
+  width: 1360px
+  padding: 28px 0
+
+.active-ad-section
+  display: flex
+  flex-direction: row
+  align-items: center
+  width: 100%
+  margin-top: 32px
+
+  button
+    color: root.$backgroundColor
+    background-color: root.$emeraldGreen
+    border-radius: root.$exSmallBorder
+    padding: 16px 48px
+
+  a
+    margin-left: 64px
+    color: root.$backgroundColor
+
+.ad-content-cnt
+  display: flex
+  flex-direction: column
+  color: root.$backgroundColor
+  margin-left: 64px 
+  padding: 32px 0
+
+  & > header
+    font-size: root.$largeTextSize
+    width: 360px
+    margin-bottom: 32px 
+    
+  .program-description
+    font-size: root.$bigTextSize
+
+  & >  p > span
+    color: root.$yellowFreshLight
+    font-size: root.$bigTextSize
+    font-weight: 600
+
+  & > p 
+    margin: 16px 0 16px 24px
+    width: 360px
+
+    .green-important
+      color: root.$emeraldGreen
+      font-size: root.$extraTextSize
+      padding-left: 32px 
+
+.ad-img-cnt
+  display: flex
+  justify-content: flex-end
+  width: 100%
+
+  img
+    width: 878px
+    height: 506px
+
+.yellow-ad-link
+  padding: 0
+  font-size: root.$smallTextSize
+  color: root.$yellowFreshLight
+
+@include mixin.window ('xlarge')
+
+@include mixin.window ('large') 

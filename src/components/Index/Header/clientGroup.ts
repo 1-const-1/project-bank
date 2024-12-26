@@ -10,13 +10,6 @@ interface clLink {
 const clientStyleClass: string = 'client-groups'
 
 /**
- * A unique class name for scenarios where client requires 
- * a representation or a service distinct from the primary 
- * client grouping.
- */
-const otherStyleClass = 'other-client-class'
-
-/**
  * A unified arrays structure defining various client types.
  * Each entry represents a client category or type of consumer
  * displayed on the main page
@@ -34,8 +27,4 @@ export const clientGroup: clLink[] = [
     name: 'Small business & IE',
     className: clientStyleClass
   },
-  {
-    name: 'other',
-    className: otherStyleClass
-  }
 ]
